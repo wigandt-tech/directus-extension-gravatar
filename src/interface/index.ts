@@ -60,7 +60,7 @@ export default defineInterface({
 		},
 		{
 			field: 'rating',
-			name: 'Rating',
+			name: '$t:displays.rating.rating',
 			type: 'string',
 			meta: {
 				width: 'half',

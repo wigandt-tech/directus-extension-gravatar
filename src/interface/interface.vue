@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { useApi } from '@directus/extensions-sdk';
 import { ref, watch } from 'vue';
-import { gravatarUrlForEmail, type GravatarDefaultImage, type GravatarRating } from '../shared/gravatar';
+import { gravatarProxyUrlForEmail, type GravatarDefaultImage, type GravatarRating } from '../shared/gravatar';
 
 const props = withDefaults(
 	defineProps<{
@@ -24,16 +25,19 @@ const emit = defineEmits<{
 	(event: 'input', value: string | null): void;
 }>();
 
+const api = useApi();
 const src = ref<string | null>(null);
+const hasImageError = ref(false);
 
 watch(
-	() => [props.value, props.size, props.defaultImage, props.rating],
+	() => [props.value, props.size, props.defaultImage, props.rating, api.defaults.baseURL],
 	async () => {
-		src.value = await gravatarUrlForEmail(props.value, {
+		hasImageError.value = false;
+		src.value = await gravatarProxyUrlForEmail(props.value, {
 			size: props.size,
 			defaultImage: props.defaultImage,
 			rating: props.rating,
-		});
+		}, api.defaults.baseURL);
 	},
 	{ immediate: true },
 );
@@ -45,7 +49,13 @@ function update(value: string | null) {
 
 <template>
 	<div class="gravatar-interface">
-		<img v-if="src" class="gravatar-interface__image" :src="src" :alt="value ?? ''" />
+		<img
+			v-if="src && !hasImageError"
+			class="gravatar-interface__image"
+			:src="src"
+			alt=""
+			@error="hasImageError = true"
+		/>
 		<v-icon v-else class="gravatar-interface__fallback" name="account_circle" />
 
 		<v-input

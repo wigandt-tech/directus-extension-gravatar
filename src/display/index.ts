@@ -33,7 +33,7 @@ export default defineDisplay({
 				},
 			},
 			schema: {
-				default_value: 40,
+				default_value: 24,
 			},
 		},
 		{
@@ -45,9 +45,9 @@ export default defineDisplay({
 				interface: 'select-dropdown',
 				options: {
 					choices: [
-						{ text: 'Circle', value: 'circle' },
+						{ text: '$t:circle', value: 'circle' },
 						{ text: 'Rounded', value: 'rounded' },
-						{ text: 'Square', value: 'square' },
+						{ text: '$t:square', value: 'square' },
 					],
 				},
 			},
@@ -72,7 +72,7 @@ export default defineDisplay({
 		},
 		{
 			field: 'rating',
-			name: 'Rating',
+			name: '$t:displays.rating.rating',
 			type: 'string',
 			meta: {
 				width: 'half',
@@ -92,7 +92,7 @@ export default defineDisplay({
 		},
 		{
 			field: 'showEmail',
-			name: 'Show email',
+			name: '$t:email',
 			type: 'boolean',
 			meta: {
 				width: 'half',
@@ -104,7 +104,7 @@ export default defineDisplay({
 		},
 		{
 			field: 'forceDefault',
-			name: 'Force default image',
+			name: '$t:default_label',
 			type: 'boolean',
 			meta: {
 				width: 'half',
