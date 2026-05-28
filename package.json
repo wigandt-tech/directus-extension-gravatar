@@ -1,0 +1,78 @@
+{
+	"name": "directus-extension-gravatar",
+	"description": "Directus app extension that renders Gravatar avatars from email fields. Ships a display for read views and an interface with live avatar preview for editing email fields.",
+	"version": "0.1.0",
+	"type": "module",
+	"license": "MIT",
+	"author": "wigandt.tech",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/wigandt-tech/directus-extension-gravatar.git"
+	},
+	"homepage": "https://github.com/wigandt-tech/directus-extension-gravatar#readme",
+	"bugs": {
+		"url": "https://github.com/wigandt-tech/directus-extension-gravatar/issues"
+	},
+	"keywords": [
+		"directus",
+		"directus-extension",
+		"directus-custom-bundle",
+		"directus-extension-bundle",
+		"interface",
+		"display",
+		"avatar",
+		"gravatar",
+		"email"
+	],
+	"directus:extension": {
+		"host": "^11.0.0",
+		"type": "bundle",
+		"path": {
+			"app": "dist/app.js",
+			"api": "dist/api.js"
+		},
+		"entries": [
+			{
+				"type": "display",
+				"name": "gravatar-display",
+				"source": "src/display/index.ts"
+			},
+			{
+				"type": "interface",
+				"name": "gravatar-interface",
+				"source": "src/interface/index.ts"
+			},
+			{
+				"type": "hook",
+				"name": "gravatar-user-avatar",
+				"source": "src/hook/index.ts"
+			}
+		]
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "directus-extension build",
+		"typecheck": "vue-tsc --noEmit",
+		"test": "vitest run",
+		"check": "npm run typecheck && npm run test && npm run build && npm pack --dry-run --ignore-scripts",
+		"prepare": "directus-extension build",
+		"dev": "directus-extension build -w --no-minify",
+		"link": "directus-extension link",
+		"add": "directus-extension add"
+	},
+	"devDependencies": {
+		"@directus/extensions-sdk": "^17.1.4",
+		"@vitejs/plugin-vue": "^6.0.2",
+		"typescript": "^6.0.3",
+		"vite": "^7.2.7",
+		"vitest": "^4.0.16",
+		"vue": "3.5.35",
+		"vue-i18n": "^11.4.4",
+		"vue-tsc": "^3.3.2"
+	},
+	"overrides": {
+		"vue": "$vue"
+	}
+}
