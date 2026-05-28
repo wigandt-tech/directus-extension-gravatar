@@ -46,6 +46,11 @@
 				"type": "hook",
 				"name": "gravatar-user-avatar",
 				"source": "src/hook/index.ts"
+			},
+			{
+				"type": "endpoint",
+				"name": "gravatar",
+				"source": "src/endpoint/index.ts"
 			}
 		]
 	},

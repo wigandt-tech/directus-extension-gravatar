@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
-import { gravatarUrlForEmail, type GravatarDefaultImage, type GravatarRating } from '../shared/gravatar';
+import { gravatarProxyUrlForEmail, type GravatarDefaultImage, type GravatarRating } from '../shared/gravatar';
 
 const props = withDefaults(
 	defineProps<{
@@ -13,7 +13,7 @@ const props = withDefaults(
 		showEmail?: boolean;
 	}>(),
 	{
-		size: 40,
+		size: 24,
 		shape: 'circle',
 		defaultImage: 'mp',
 		rating: 'g',
@@ -23,17 +23,21 @@ const props = withDefaults(
 );
 
 const src = ref<string | null>(null);
+const hasImageError = ref(false);
+
+const renderedSize = computed(() => Math.min(Math.max(Math.round(Number(props.size) || 24), 1), 2048));
 
 const style = computed(() => ({
-	width: `${props.size}px`,
-	height: `${props.size}px`,
+	width: `${renderedSize.value}px`,
+	height: `${renderedSize.value}px`,
 	borderRadius: props.shape === 'circle' ? '50%' : props.shape === 'rounded' ? '6px' : '0',
 }));
 
 watch(
 	() => [props.value, props.size, props.defaultImage, props.rating, props.forceDefault],
 	async () => {
-		src.value = await gravatarUrlForEmail(props.value, {
+		hasImageError.value = false;
+		src.value = await gravatarProxyUrlForEmail(props.value, {
 			size: props.size,
 			defaultImage: props.defaultImage,
 			rating: props.rating,
@@ -46,8 +50,17 @@ watch(
 
 <template>
 	<div class="gravatar-display">
-		<img v-if="src" class="gravatar-display__image" :src="src" :alt="value ?? ''" :style="style" loading="lazy" />
-		<v-icon v-else name="account_circle" class="gravatar-display__fallback" :style="style" />
+		<span class="gravatar-display__avatar" :style="style">
+			<img
+				v-if="src && !hasImageError"
+				class="gravatar-display__image"
+				:src="src"
+				alt=""
+				loading="lazy"
+				@error="hasImageError = true"
+			/>
+			<v-icon v-else name="account_circle" class="gravatar-display__fallback" />
+		</span>
 		<span v-if="showEmail" class="gravatar-display__email">{{ value }}</span>
 	</div>
 </template>
@@ -57,25 +70,41 @@ watch(
 	display: inline-flex;
 	align-items: center;
 	gap: 8px;
+	width: 100%;
 	max-width: 100%;
+	min-width: 0;
+	line-height: 1;
+	vertical-align: middle;
 }
 
-.gravatar-display__image {
-	display: block;
-	flex: 0 0 auto;
-	object-fit: cover;
-	background: var(--theme--background-subdued);
-}
-
-.gravatar-display__fallback {
+.gravatar-display__avatar {
 	display: inline-flex;
 	flex: 0 0 auto;
 	align-items: center;
 	justify-content: center;
+	overflow: hidden;
+	line-height: 0;
+	background: var(--theme--background-subdued);
+}
+
+.gravatar-display__image {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.gravatar-display__fallback {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
 	color: var(--theme--foreground-subdued);
 }
 
 .gravatar-display__email {
+	min-width: 0;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;

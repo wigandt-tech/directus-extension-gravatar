@@ -9,6 +9,7 @@ A Directus **bundle** that adds Gravatar support for email fields and Directus u
 | **Gravatar** | Display | Render an avatar from any string/email field in list and detail views. |
 | **Gravatar Email** | Interface | Edit an email field with a live Gravatar preview. |
 | **Gravatar User Avatar** | Hook | Optionally import a user's Gravatar into `directus_users.avatar`, so Directus' own user profile UI can use it. |
+| **Gravatar Proxy** | Endpoint | Serve Gravatar images through the Directus API to avoid browser CSP or tracking-blocker issues. |
 
 Gravatar URLs are generated from the lowercased, trimmed email address using SHA-256.
 
@@ -28,6 +29,8 @@ For any email field:
 2. Optionally set the interface to **Gravatar Email** to keep the normal email input and show a live preview while editing.
 
 The display and interface support size, rating, and default image options.
+
+The app components load avatars from the bundled `/gravatar/avatar/:hash` endpoint. Restart Directus after installing or updating the extension so the API endpoint is registered.
 
 ## Directus user profile avatars
 
