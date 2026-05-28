@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
-import { gravatarProxyUrlForEmail, type GravatarDefaultImage, type GravatarRating } from '../shared/gravatar';
+import { gravatarProxyUrlForEmail, normalizeEmail, type GravatarDefaultImage, type GravatarRating } from '../shared/gravatar';
 
 const props = withDefaults(
 	defineProps<{
-		value: string | null;
+		value: unknown;
 		size?: number;
 		shape?: 'circle' | 'rounded' | 'square';
 		defaultImage?: GravatarDefaultImage;
@@ -24,7 +24,7 @@ const props = withDefaults(
 
 const src = ref<string | null>(null);
 const hasImageError = ref(false);
-
+const email = computed(() => normalizeEmail(props.value));
 const renderedSize = computed(() => Math.min(Math.max(Math.round(Number(props.size) || 24), 1), 2048));
 
 const style = computed(() => ({
@@ -61,7 +61,7 @@ watch(
 			/>
 			<v-icon v-else name="account_circle" class="gravatar-display__fallback" />
 		</span>
-		<span v-if="showEmail" class="gravatar-display__email">{{ value }}</span>
+		<span v-if="showEmail && email" class="gravatar-display__email">{{ email }}</span>
 	</div>
 </template>
 
