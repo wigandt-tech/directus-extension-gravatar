@@ -18,6 +18,15 @@ export type GravatarOptions = {
 };
 
 export function normalizeEmail(value: unknown): string | null {
+	if (Array.isArray(value)) {
+		for (const item of value) {
+			const normalized = normalizeEmail(item);
+			if (normalized) return normalized;
+		}
+
+		return null;
+	}
+
 	if (typeof value !== 'string') return null;
 
 	const normalized = value.trim().toLowerCase();
