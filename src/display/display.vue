@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useApi } from '@directus/extensions-sdk';
 import { computed, ref, watch } from 'vue';
 import { gravatarProxyUrlForEmail, normalizeEmail, type GravatarDefaultImage, type GravatarRating } from '../shared/gravatar';
 
@@ -22,9 +23,11 @@ const props = withDefaults(
 	},
 );
 
+const api = useApi();
 const src = ref<string | null>(null);
 const hasImageError = ref(false);
 const email = computed(() => normalizeEmail(props.value));
+const apiBaseUrl = computed(() => api.defaults.baseURL);
 const renderedSize = computed(() => Math.min(Math.max(Math.round(Number(props.size) || 24), 1), 2048));
 
 const style = computed(() => ({
@@ -34,7 +37,7 @@ const style = computed(() => ({
 }));
 
 watch(
-	() => [props.value, props.size, props.defaultImage, props.rating, props.forceDefault],
+	() => [props.value, props.size, props.defaultImage, props.rating, props.forceDefault, apiBaseUrl.value],
 	async () => {
 		hasImageError.value = false;
 		src.value = await gravatarProxyUrlForEmail(props.value, {
@@ -42,7 +45,7 @@ watch(
 			defaultImage: props.defaultImage,
 			rating: props.rating,
 			forceDefault: props.forceDefault,
-		});
+		}, apiBaseUrl.value);
 	},
 	{ immediate: true },
 );

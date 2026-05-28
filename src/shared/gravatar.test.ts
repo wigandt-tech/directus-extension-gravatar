@@ -47,11 +47,15 @@ describe('gravatarProxyUrl', () => {
 		);
 	});
 
+	it('builds a proxy URL below the configured Directus API base URL', () => {
+		expect(gravatarProxyUrl('abc', { size: 96 }, '/directus/')).toBe('/directus/gravatar/avatar/abc?s=96&d=mp&r=g');
+	});
+
 	it('builds a same-origin proxy URL from an email', async () => {
 		await expect(
-			gravatarProxyUrlForEmail('MyEmailAddress@example.com ', { size: 200, defaultImage: '404' }),
+			gravatarProxyUrlForEmail('MyEmailAddress@example.com ', { size: 200, defaultImage: '404' }, '/directus'),
 		).resolves.toBe(
-			'/gravatar/avatar/84059b07d4be67b806386c0aad8070a23f18836bbaae342275dc0a83414c32ee?s=200&d=404&r=g',
+			'/directus/gravatar/avatar/84059b07d4be67b806386c0aad8070a23f18836bbaae342275dc0a83414c32ee?s=200&d=404&r=g',
 		);
 	});
 });
