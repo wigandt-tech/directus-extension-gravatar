@@ -62,7 +62,7 @@ npm run build    # production build -> dist/
 npm run check    # typecheck, tests, build, and package dry run
 ```
 
-Requires Directus host `^11`.
+Requires Directus host `^11` or `^12`.
 
 ## Release
 
