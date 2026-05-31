@@ -92,7 +92,7 @@ export default defineDisplay({
 		},
 		{
 			field: 'showEmail',
-			name: '$t:email',
+			name: 'Show email',
 			type: 'boolean',
 			meta: {
 				width: 'half',
@@ -104,7 +104,7 @@ export default defineDisplay({
 		},
 		{
 			field: 'forceDefault',
-			name: '$t:default_label',
+			name: 'Force default image',
 			type: 'boolean',
 			meta: {
 				width: 'half',
