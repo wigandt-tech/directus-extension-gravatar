@@ -13,6 +13,16 @@ A Directus **bundle** that adds Gravatar support for email fields and Directus u
 
 Gravatar URLs are generated from the lowercased, trimmed email address using SHA-256.
 
+## Screenshots
+
+### Display in collection layouts
+
+![Gravatar display in a Directus list view](https://raw.githubusercontent.com/wigandt-tech/directus-extension-gravatar/main/docs/screenshots/gravatar-display.svg)
+
+### Email interface with live preview
+
+![Gravatar Email interface in a Directus item form](https://raw.githubusercontent.com/wigandt-tech/directus-extension-gravatar/main/docs/screenshots/gravatar-interface.svg)
+
 ## Installation
 
 ```bash
