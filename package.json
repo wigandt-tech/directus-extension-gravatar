@@ -1,7 +1,7 @@
 {
 	"name": "directus-extension-gravatar",
 	"description": "Directus app extension that renders Gravatar avatars from email fields. Ships a display for read views and an interface with live avatar preview for editing email fields.",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"type": "module",
 	"license": "MIT",
 	"author": "wigandt.tech",
