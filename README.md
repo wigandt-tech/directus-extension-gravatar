@@ -66,7 +66,7 @@ Requires Directus host `^11`.
 
 ## Release
 
-CI runs on pull requests and pushes to `main`. Release Please opens release PRs from conventional commits, and published GitHub releases trigger npm publishing through Trusted Publishing with provenance.
+CI runs on pull requests and pushes to `main`. Changesets opens version PRs and publishes releases through npm Trusted Publishing with provenance.
 
 ## License
 

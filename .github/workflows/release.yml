@@ -8,8 +8,8 @@ on:
 
 permissions:
   contents: write
-  issues: write
   pull-requests: write
+  id-token: write
 
 concurrency:
   group: release-${{ github.ref }}
@@ -19,9 +19,31 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - id: release
-        uses: googleapis/release-please-action@v5
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
         with:
-          token: ${{ github.token }}
-          config-file: release-config.json
-          manifest-file: release-manifest.json
+          node-version: 22
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - run: npm install -g npm@latest
+
+      - run: npm ci --ignore-scripts
+
+      - name: Configure npm trusted publishing
+        run: |
+          cat > "$HOME/.npmrc" <<'EOF'
+          registry=https://registry.npmjs.org/
+          provenance=true
+          EOF
+
+      - id: changesets
+        uses: changesets/action@v1
+        with:
+          version: npm run version
+          publish: npm run release
+          title: "chore: version packages"
+          commit: "chore: version packages"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
