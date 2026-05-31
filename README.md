@@ -76,7 +76,7 @@ Requires Directus host `^11` or `^12`.
 
 ## Release
 
-CI runs on pull requests and pushes to `main`. Release Please opens release PRs from conventional commits, and published GitHub releases trigger npm publishing through Trusted Publishing with provenance.
+CI runs on pull requests and pushes to `main`. Releases are started manually from the Release workflow by choosing a `patch`, `minor`, or `major` bump. The workflow updates the package version and changelog, creates the git tag and GitHub release, and publishes to npm through Trusted Publishing with provenance.
 
 ## License
 
