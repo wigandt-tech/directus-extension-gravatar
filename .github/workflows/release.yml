@@ -23,13 +23,18 @@ concurrency:
 
 jobs:
   release:
-    if: github.ref_name == 'main'
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.version.outputs.version }}
       tag: ${{ steps.version.outputs.tag }}
       changelog: ${{ steps.changelog.outputs.changelog }}
     steps:
+      - name: Require main branch
+        if: github.ref_name != 'main'
+        run: |
+          echo "Releases must be dispatched from the main branch. Current branch: ${{ github.ref_name }}"
+          exit 1
+
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
