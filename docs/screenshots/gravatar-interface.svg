@@ -1,51 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
-	<title id="title">Gravatar Email interface in a Directus item form</title>
-	<desc id="desc">A Directus item form showing an email input with a live circular Gravatar preview beside it.</desc>
-	<defs>
-		<filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-			<feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#182235" flood-opacity="0.16"/>
-		</filter>
-		<linearGradient id="avatar" x1="0" x2="1" y1="0" y2="1">
-			<stop offset="0%" stop-color="#00A86B"/>
-			<stop offset="100%" stop-color="#4F46E5"/>
-		</linearGradient>
-	</defs>
-	<rect width="1200" height="760" fill="#F5F7FA"/>
-	<rect x="52" y="48" width="1096" height="664" rx="10" fill="#FFFFFF" filter="url(#shadow)"/>
-	<rect x="52" y="48" width="88" height="664" rx="10" fill="#18212F"/>
-	<circle cx="96" cy="92" r="20" fill="#6644FF"/>
-	<rect x="78" y="148" width="36" height="36" rx="8" fill="#FFFFFF" opacity="0.08"/>
-	<rect x="78" y="204" width="36" height="36" rx="8" fill="#FFFFFF" opacity="0.14"/>
-	<rect x="78" y="260" width="36" height="36" rx="8" fill="#FFFFFF" opacity="0.08"/>
-	<rect x="78" y="316" width="36" height="36" rx="8" fill="#FFFFFF" opacity="0.08"/>
-	<rect x="140" y="48" width="1008" height="82" fill="#FFFFFF"/>
-	<text x="184" y="96" fill="#172033" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">Edit Contact</text>
-	<rect x="958" y="72" width="108" height="36" rx="18" fill="#6644FF"/>
-	<text x="1012" y="96" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="middle">Save</text>
-	<line x1="140" x2="1148" y1="130" y2="130" stroke="#E5EAF0"/>
-	<rect x="184" y="166" width="620" height="430" rx="8" fill="#FFFFFF" stroke="#DDE3EA"/>
-	<g font-family="Inter, Arial, sans-serif">
-		<text x="224" y="223" fill="#172033" font-size="13" font-weight="700">NAME</text>
-		<rect x="224" y="242" width="520" height="48" rx="6" fill="#FFFFFF" stroke="#C9D3DF"/>
-		<text x="244" y="272" fill="#172033" font-size="15">Avery Stone</text>
-		<text x="224" y="345" fill="#172033" font-size="13" font-weight="700">EMAIL</text>
-		<circle cx="256" cy="392" r="32" fill="url(#avatar)"/>
-		<text x="256" y="403" fill="#FFFFFF" font-size="24" font-weight="700" text-anchor="middle">AS</text>
-		<rect x="308" y="368" width="436" height="48" rx="6" fill="#FFFFFF" stroke="#C9D3DF"/>
-		<text x="328" y="398" fill="#172033" font-size="15">avery@example.com</text>
-		<text x="224" y="479" fill="#172033" font-size="13" font-weight="700">STATUS</text>
-		<rect x="224" y="498" width="160" height="42" rx="21" fill="#E9F7EF"/>
-		<circle cx="250" cy="519" r="5" fill="#087443"/>
-		<text x="266" y="524" fill="#087443" font-size="14" font-weight="700">Published</text>
-	</g>
-	<rect x="842" y="166" width="234" height="252" rx="8" fill="#F8FAFC" stroke="#DDE3EA"/>
-	<text x="872" y="213" fill="#172033" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700">Gravatar Email</text>
-	<text x="872" y="246" fill="#64748B" font-family="Inter, Arial, sans-serif" font-size="13">Size</text>
-	<text x="1040" y="246" fill="#172033" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="700" text-anchor="end">64</text>
-	<line x1="872" x2="1046" y1="270" y2="270" stroke="#E5EAF0"/>
-	<text x="872" y="305" fill="#64748B" font-family="Inter, Arial, sans-serif" font-size="13">Default image</text>
-	<text x="1040" y="305" fill="#172033" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="700" text-anchor="end">Mystery Person</text>
-	<line x1="872" x2="1046" y1="329" y2="329" stroke="#E5EAF0"/>
-	<text x="872" y="364" fill="#64748B" font-family="Inter, Arial, sans-serif" font-size="13">Rating</text>
-	<text x="1040" y="364" fill="#172033" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="700" text-anchor="end">G</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 300" font-family="-apple-system, Segoe UI, Roboto, sans-serif" role="img" aria-labelledby="title desc">
+  <title id="title">Gravatar display options in Directus</title>
+  <desc id="desc">Dark Directus-style configuration panel for the Gravatar display options.</desc>
+  <defs>
+    <linearGradient id="avatar" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#00a86b"/>
+      <stop offset="100%" stop-color="#6644ff"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="780" height="300" rx="10" fill="#18222f"/>
+  <text x="28" y="38" fill="#e4ebf1" font-size="15" font-weight="700">Display: Gravatar</text>
+
+  <rect x="28" y="62" width="320" height="198" rx="8" fill="#1b2735" stroke="#2f3c4c"/>
+  <text x="52" y="102" fill="#8196a9" font-size="12" font-weight="700">EMAIL</text>
+  <circle cx="76" cy="140" r="22" fill="url(#avatar)"/>
+  <text x="76" y="147" fill="#ffffff" font-size="16" font-weight="700" text-anchor="middle">AS</text>
+  <text x="112" y="145" fill="#e4ebf1" font-size="14">avery@example.com</text>
+  <line x1="52" x2="324" y1="178" y2="178" stroke="#2f3c4c"/>
+  <circle cx="76" cy="216" r="22" fill="#26384a"/>
+  <path d="M76 201a7 7 0 1 1 0 14a7 7 0 0 1 0-14Zm-14 31c2-8 8-12 14-12s12 4 14 12" fill="none" stroke="#8196a9" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="112" y="221" fill="#c5cfdb" font-size="14">missing@example.com</text>
+
+  <rect x="392" y="62" width="360" height="198" rx="8" fill="#21303f" stroke="#2f3c4c"/>
+  <text x="416" y="100" fill="#e4ebf1" font-size="14" font-weight="700">Options</text>
+
+  <text x="416" y="134" fill="#8196a9" font-size="12">Size</text>
+  <rect x="532" y="116" width="76" height="30" rx="6" fill="#1b2735" stroke="#2f3c4c"/>
+  <text x="570" y="136" fill="#c5cfdb" font-size="13" text-anchor="middle">32</text>
+  <text x="632" y="134" fill="#8196a9" font-size="12">Shape</text>
+  <rect x="682" y="116" width="46" height="30" rx="15" fill="#322758" stroke="#6644ff"/>
+  <text x="705" y="136" fill="#c9bbff" font-size="12" font-weight="700" text-anchor="middle">Circle</text>
+
+  <text x="416" y="176" fill="#8196a9" font-size="12">Default image</text>
+  <rect x="532" y="158" width="196" height="30" rx="6" fill="#1b2735" stroke="#2f3c4c"/>
+  <text x="546" y="178" fill="#c5cfdb" font-size="13">Mystery Person</text>
+
+  <text x="416" y="218" fill="#8196a9" font-size="12">Rating</text>
+  <rect x="532" y="200" width="48" height="30" rx="6" fill="#1b2735" stroke="#2f3c4c"/>
+  <text x="556" y="220" fill="#c5cfdb" font-size="13" font-weight="700" text-anchor="middle">G</text>
+  <rect x="612" y="200" width="116" height="30" rx="15" fill="#1f4d3a"/>
+  <circle cx="630" cy="215" r="6" fill="#8ff0b8"/>
+  <text x="650" y="220" fill="#8ff0b8" font-size="12" font-weight="700">Show email</text>
 </svg>
