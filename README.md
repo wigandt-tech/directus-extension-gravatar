@@ -17,11 +17,11 @@ Gravatar URLs are generated from the lowercased, trimmed email address using SHA
 
 ### Display in collection layouts
 
-![Gravatar display in a Directus list view](docs/screenshots/gravatar-display.svg)
+![Gravatar display in a Directus list view](https://raw.githubusercontent.com/wigandt-tech/directus-extension-gravatar/main/docs/screenshots/gravatar-display.svg)
 
 ### Email interface with live preview
 
-![Gravatar Email interface in a Directus item form](docs/screenshots/gravatar-interface.svg)
+![Gravatar Email interface in a Directus item form](https://raw.githubusercontent.com/wigandt-tech/directus-extension-gravatar/main/docs/screenshots/gravatar-interface.svg)
 
 ## Installation
 
