@@ -47,7 +47,7 @@ npm run build    # production build -> dist/
 npm run check    # typecheck, tests, build, and package dry run
 ```
 
-Then drop `dist/` into your Directus `extensions/` folder, or `npm run link` for local development.
+For a manual local install, copy this extension package folder into your Directus `extensions/` folder after building. Keep `package.json` and `dist/` together so Directus can read the bundle manifest and register both entrypoints. Use `npm run link` for local development.
 
 Requires Directus host `^11` or `^12`.
 
