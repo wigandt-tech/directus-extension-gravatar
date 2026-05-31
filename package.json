@@ -1,6 +1,6 @@
 {
 	"name": "directus-extension-gravatar",
-	"description": "Directus app extension that renders Gravatar avatars from email fields. Ships a display for read views and an interface with live avatar preview for editing email fields.",
+	"description": "Directus app extension that renders Gravatar avatars from email fields in collection views.",
 	"version": "0.1.0",
 	"type": "module",
 	"license": "MIT",
@@ -18,7 +18,6 @@
 		"directus-extension",
 		"directus-custom-bundle",
 		"directus-extension-bundle",
-		"interface",
 		"display",
 		"avatar",
 		"gravatar",
@@ -36,16 +35,6 @@
 				"type": "display",
 				"name": "gravatar-display",
 				"source": "src/display/index.ts"
-			},
-			{
-				"type": "interface",
-				"name": "gravatar-interface",
-				"source": "src/interface/index.ts"
-			},
-			{
-				"type": "hook",
-				"name": "gravatar-user-avatar",
-				"source": "src/hook/index.ts"
 			},
 			{
 				"type": "endpoint",
