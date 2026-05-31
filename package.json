@@ -62,16 +62,12 @@
 		"typecheck": "vue-tsc --noEmit",
 		"test": "vitest run",
 		"check": "npm run typecheck && npm run test && npm run build && npm pack --dry-run --ignore-scripts",
-		"changeset": "changeset",
-		"version": "changeset version",
-		"release": "npm run check && changeset publish",
 		"prepare": "directus-extension build",
 		"dev": "directus-extension build -w --no-minify",
 		"link": "directus-extension link",
 		"add": "directus-extension add"
 	},
 	"devDependencies": {
-		"@changesets/cli": "^2.31.0",
 		"@directus/extensions-sdk": "^17.1.4",
 		"@vitejs/plugin-vue": "^6.0.2",
 		"typescript": "^6.0.3",
