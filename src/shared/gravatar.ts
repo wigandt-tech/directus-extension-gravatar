@@ -17,10 +17,32 @@ export type GravatarOptions = {
 	forceDefault?: boolean;
 };
 
-export function normalizeEmail(value: unknown): string | null {
+const emailPattern = /[^\s<>"()[\]{},;:]+@[^\s<>"()[\]{},;:]+/;
+const preferredEmailKeys = ['email', 'email_address', 'emailAddress', 'mail'];
+
+function normalizeEmailValue(value: unknown, seen: WeakSet<object>): string | null {
 	if (Array.isArray(value)) {
 		for (const item of value) {
-			const normalized = normalizeEmail(item);
+			const normalized = normalizeEmailValue(item, seen);
+			if (normalized) return normalized;
+		}
+
+		return null;
+	}
+
+	if (value && typeof value === 'object') {
+		if (seen.has(value)) return null;
+		seen.add(value);
+
+		const record = value as Record<string, unknown>;
+
+		for (const key of preferredEmailKeys) {
+			const normalized = normalizeEmailValue(record[key], seen);
+			if (normalized) return normalized;
+		}
+
+		for (const item of Object.values(record)) {
+			const normalized = normalizeEmailValue(item, seen);
 			if (normalized) return normalized;
 		}
 
@@ -29,20 +51,25 @@ export function normalizeEmail(value: unknown): string | null {
 
 	if (typeof value !== 'string') return null;
 
-	const trimmed = value.trim();
+	const normalized = value.trim().toLowerCase();
 
-	if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+	if (normalized.startsWith('[') || normalized.startsWith('{') || normalized.startsWith('"')) {
 		try {
-			const parsed: unknown = JSON.parse(trimmed);
-			const normalized = normalizeEmail(parsed);
-			if (normalized) return normalized;
+			const parsed = JSON.parse(normalized) as unknown;
+			const parsedEmail = normalizeEmailValue(parsed, seen);
+			if (parsedEmail) return parsedEmail;
 		} catch {
-			// Directus can pass relational display values as JSON-like strings.
+			// Fall through to loose extraction for display values that only look JSON-like.
 		}
 	}
 
-	const normalized = trimmed.toLowerCase();
-	return normalized.includes('@') ? normalized : null;
+	const match = normalized.match(emailPattern);
+
+	return match?.[0] ?? null;
+}
+
+export function normalizeEmail(value: unknown): string | null {
+	return normalizeEmailValue(value, new WeakSet());
 }
 
 export async function sha256Hex(value: string): Promise<string> {

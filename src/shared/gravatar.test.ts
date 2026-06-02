@@ -6,6 +6,10 @@ describe('normalizeEmail', () => {
 		expect(normalizeEmail(' User@Example.COM ')).toBe('user@example.com');
 	});
 
+	it('preserves apostrophes in valid email local parts', () => {
+		expect(normalizeEmail(" O'Hara@Example.COM ")).toBe("o'hara@example.com");
+	});
+
 	it('uses the first valid email from array values', () => {
 		expect(normalizeEmail([null, 'not-an-email', ' User@Example.COM '])).toBe('user@example.com');
 	});
@@ -13,6 +17,19 @@ describe('normalizeEmail', () => {
 	it('uses the first valid email from JSON array string values', () => {
 		expect(normalizeEmail('[" User@Example.COM "]')).toBe('user@example.com');
 		expect(normalizeEmail('[null,"not-an-email","Admin@Example.COM"]')).toBe('admin@example.com');
+	});
+
+	it('extracts emails from JSON-like string values', () => {
+		expect(normalizeEmail('["User@Example.COM"]')).toBe('user@example.com');
+		expect(normalizeEmail('["O\'Hara@Example.COM"]')).toBe("o'hara@example.com");
+	});
+
+	it('uses the first valid email from relation object values', () => {
+		expect(normalizeEmail([{ id: 1, email: null }, { id: 2, email: ' User@Example.COM ' }])).toBe('user@example.com');
+	});
+
+	it('finds emails in nested relation values', () => {
+		expect(normalizeEmail({ contact: { details: { mail: ' User@Example.COM ' } } })).toBe('user@example.com');
 	});
 
 	it('rejects empty and non-email values', () => {

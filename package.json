@@ -9,7 +9,7 @@
 		"type": "git",
 		"url": "git+https://github.com/wigandt-tech/directus-extension-gravatar.git"
 	},
-	"homepage": "https://github.com/wigandt-tech/directus-extension-gravatar#readme",
+	"homepage": "https://wigandt.tech/projekte/open-source/directus-extension-gravatar",
 	"bugs": {
 		"url": "https://github.com/wigandt-tech/directus-extension-gravatar/issues"
 	},
