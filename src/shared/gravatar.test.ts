@@ -46,13 +46,13 @@ describe('sha256Hex', () => {
 describe('gravatarUrl', () => {
 	it('builds a Gravatar image URL', () => {
 		expect(gravatarUrl('abc', { size: 96, defaultImage: 'identicon', rating: 'pg', forceDefault: true })).toBe(
-			'https://www.gravatar.com/avatar/abc?s=96&d=identicon&r=pg&f=y',
+			'https://gravatar.com/avatar/abc?s=96&d=identicon&r=pg&f=y',
 		);
 	});
 
 	it('builds a Gravatar URL from an email', async () => {
 		await expect(gravatarUrlForEmail('MyEmailAddress@example.com ', { size: 200, defaultImage: '404' })).resolves.toBe(
-			'https://www.gravatar.com/avatar/84059b07d4be67b806386c0aad8070a23f18836bbaae342275dc0a83414c32ee?s=200&d=404&r=g',
+			'https://gravatar.com/avatar/84059b07d4be67b806386c0aad8070a23f18836bbaae342275dc0a83414c32ee?s=200&d=404&r=g',
 		);
 	});
 });
