@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, onBeforeUnmount, ref, watch } from 'vue';
 import { gravatarUrlForEmail, normalizeEmail, type GravatarDefaultImage, type GravatarRating } from '../shared/gravatar';
 
 const props = withDefaults(
@@ -26,6 +26,8 @@ const src = ref<string | null>(null);
 const hasImageError = ref(false);
 const email = computed(() => normalizeEmail(props.value));
 const renderedSize = computed(() => Math.min(Math.max(Math.round(Number(props.size) || 24), 1), 2048));
+let objectUrl: string | null = null;
+let requestId = 0;
 
 const style = computed(() => ({
 	width: `${renderedSize.value}px`,
@@ -33,19 +35,59 @@ const style = computed(() => ({
 	borderRadius: props.shape === 'circle' ? '50%' : props.shape === 'rounded' ? '6px' : '0',
 }));
 
+function revokeObjectUrl() {
+	if (!objectUrl) return;
+
+	URL.revokeObjectURL(objectUrl);
+	objectUrl = null;
+}
+
+async function loadImageSource(url: string): Promise<string | null> {
+	try {
+		const response = await fetch(url);
+		if (!response.ok) return null;
+
+		const blob = await response.blob();
+		return URL.createObjectURL(blob);
+	} catch {
+		return null;
+	}
+}
+
 watch(
 	() => [props.value, props.size, props.defaultImage, props.rating, props.forceDefault],
 	async () => {
+		const currentRequestId = ++requestId;
 		hasImageError.value = false;
-		src.value = await gravatarUrlForEmail(props.value, {
+		revokeObjectUrl();
+		src.value = null;
+
+		const url = await gravatarUrlForEmail(props.value, {
 			size: props.size,
 			defaultImage: props.defaultImage,
 			rating: props.rating,
 			forceDefault: props.forceDefault,
 		});
+
+		if (!url) return;
+
+		const nextSrc = await loadImageSource(url);
+
+		if (currentRequestId !== requestId) {
+			if (nextSrc) URL.revokeObjectURL(nextSrc);
+			return;
+		}
+
+		objectUrl = nextSrc;
+		src.value = nextSrc;
 	},
 	{ immediate: true },
 );
+
+onBeforeUnmount(() => {
+	requestId++;
+	revokeObjectUrl();
+});
 </script>
 
 <template>
