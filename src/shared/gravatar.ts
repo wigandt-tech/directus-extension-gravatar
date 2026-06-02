@@ -29,7 +29,19 @@ export function normalizeEmail(value: unknown): string | null {
 
 	if (typeof value !== 'string') return null;
 
-	const normalized = value.trim().toLowerCase();
+	const trimmed = value.trim();
+
+	if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+		try {
+			const parsed: unknown = JSON.parse(trimmed);
+			const normalized = normalizeEmail(parsed);
+			if (normalized) return normalized;
+		} catch {
+			// Directus can pass relational display values as JSON-like strings.
+		}
+	}
+
+	const normalized = trimmed.toLowerCase();
 	return normalized.includes('@') ? normalized : null;
 }
 

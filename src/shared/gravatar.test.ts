@@ -10,10 +10,16 @@ describe('normalizeEmail', () => {
 		expect(normalizeEmail([null, 'not-an-email', ' User@Example.COM '])).toBe('user@example.com');
 	});
 
+	it('uses the first valid email from JSON array string values', () => {
+		expect(normalizeEmail('[" User@Example.COM "]')).toBe('user@example.com');
+		expect(normalizeEmail('[null,"not-an-email","Admin@Example.COM"]')).toBe('admin@example.com');
+	});
+
 	it('rejects empty and non-email values', () => {
 		expect(normalizeEmail('')).toBeNull();
 		expect(normalizeEmail('not-an-email')).toBeNull();
 		expect(normalizeEmail(['', 'not-an-email'])).toBeNull();
+		expect(normalizeEmail('["","not-an-email"]')).toBeNull();
 		expect(normalizeEmail(null)).toBeNull();
 	});
 });
