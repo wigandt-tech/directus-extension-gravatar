@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.3 - 2026-06-02
+
+
+- fix: load Gravatar images through blob URLs (b25f9bc)
+- fix: remove relation display parsing (3706516)
+- fix: use canonical Gravatar avatar host (337bac0)
+- fix: normalize JSON array email display values (3b6a2e9)
+- fix: make gravatar display marketplace-compatible (f97b5b9)
+- chore: update homepage URL (fae9b34)
+- fix: normalize relation email values (e2991c5)
+
+
 ## 1.0.2 - 2026-05-31
 
 
