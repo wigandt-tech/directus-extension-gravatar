@@ -17,32 +17,10 @@ export type GravatarOptions = {
 	forceDefault?: boolean;
 };
 
-const emailPattern = /[^\s<>"()[\]{},;:]+@[^\s<>"()[\]{},;:]+/;
-const preferredEmailKeys = ['email', 'email_address', 'emailAddress', 'mail'];
-
-function normalizeEmailValue(value: unknown, seen: WeakSet<object>): string | null {
+export function normalizeEmail(value: unknown): string | null {
 	if (Array.isArray(value)) {
 		for (const item of value) {
-			const normalized = normalizeEmailValue(item, seen);
-			if (normalized) return normalized;
-		}
-
-		return null;
-	}
-
-	if (value && typeof value === 'object') {
-		if (seen.has(value)) return null;
-		seen.add(value);
-
-		const record = value as Record<string, unknown>;
-
-		for (const key of preferredEmailKeys) {
-			const normalized = normalizeEmailValue(record[key], seen);
-			if (normalized) return normalized;
-		}
-
-		for (const item of Object.values(record)) {
-			const normalized = normalizeEmailValue(item, seen);
+			const normalized = normalizeEmail(item);
 			if (normalized) return normalized;
 		}
 
@@ -52,24 +30,7 @@ function normalizeEmailValue(value: unknown, seen: WeakSet<object>): string | nu
 	if (typeof value !== 'string') return null;
 
 	const normalized = value.trim().toLowerCase();
-
-	if (normalized.startsWith('[') || normalized.startsWith('{') || normalized.startsWith('"')) {
-		try {
-			const parsed = JSON.parse(normalized) as unknown;
-			const parsedEmail = normalizeEmailValue(parsed, seen);
-			if (parsedEmail) return parsedEmail;
-		} catch {
-			// Fall through to loose extraction for display values that only look JSON-like.
-		}
-	}
-
-	const match = normalized.match(emailPattern);
-
-	return match?.[0] ?? null;
-}
-
-export function normalizeEmail(value: unknown): string | null {
-	return normalizeEmailValue(value, new WeakSet());
+	return normalized.includes('@') ? normalized : null;
 }
 
 export async function sha256Hex(value: string): Promise<string> {
