@@ -93,7 +93,7 @@ export function gravatarUrl(hash: string, options: GravatarOptions = {}): string
 
 	if (options.forceDefault) params.set('f', 'y');
 
-	return `https://www.gravatar.com/avatar/${hash}?${params.toString()}`;
+	return `https://gravatar.com/avatar/${hash}?${params.toString()}`;
 }
 
 export async function gravatarUrlForEmail(email: unknown, options: GravatarOptions = {}): Promise<string | null> {
