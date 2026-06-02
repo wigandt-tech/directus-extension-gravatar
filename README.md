@@ -1,17 +1,10 @@
 # Directus Gravatar
 
-A Directus **bundle** that renders Gravatar avatars from email fields in collection views.
+A Directus **display extension** that renders Gravatar avatars from email fields in collection views.
 
-The email value is lowercased, trimmed, hashed with SHA-256, and loaded through the bundled Directus API proxy so browser CSP rules or tracking blockers are less likely to break avatars.
+The email value is lowercased, trimmed, hashed with SHA-256, and loaded from Gravatar.
 
 ![Gravatar display in a Directus list view](https://raw.githubusercontent.com/wigandt-tech/directus-extension-gravatar/main/docs/screenshots/gravatar-display.svg)
-
-## What's in the bundle
-
-| Entry | Type | Use it for |
-| --- | --- | --- |
-| **Gravatar** | Display | Render an avatar from any string/email field in list and detail views, optionally with the email text next to it. |
-| **Gravatar Proxy** | Endpoint | Serve Gravatar images through `/gravatar/avatar/:hash` on the Directus API. |
 
 ## Setup
 
@@ -21,7 +14,7 @@ The email value is lowercased, trimmed, hashed with SHA-256, and loaded through 
 npm install directus-extension-gravatar
 ```
 
-Restart Directus after installing or updating the package so the API endpoint is registered.
+Restart Directus after installing or updating the package so the display is registered.
 
 ### 2. Set an email field to **Gravatar** display
 
@@ -36,7 +29,7 @@ Settings -> Data Model -> your collection -> email field -> Display -> **Gravata
 - **Show email**: render the normalized email next to the avatar.
 - **Force default image**: always show the configured fallback image.
 
-The display loads avatars from the bundled `/gravatar/avatar/:hash` endpoint. Invalid or missing values fall back to the Directus account icon.
+Invalid or missing values fall back to the Directus account icon.
 
 ## Development
 
@@ -47,7 +40,7 @@ npm run build    # production build -> dist/
 npm run check    # typecheck, tests, build, and package dry run
 ```
 
-For a manual local install, copy this extension package folder into your Directus `extensions/` folder after building. Keep `package.json` and `dist/` together so Directus can read the bundle manifest and register both entrypoints. Use `npm run link` for local development.
+For a manual local install, copy this extension package folder into your Directus `extensions/` folder after building. Keep `package.json` and `dist/` together so Directus can read the extension manifest. Use `npm run link` for local development.
 
 Requires Directus host `^11` or `^12`.
 

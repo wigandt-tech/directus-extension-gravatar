@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { gravatarProxyUrl, gravatarProxyUrlForEmail, gravatarUrl, gravatarUrlForEmail, normalizeEmail, sha256Hex } from './gravatar';
+import { gravatarUrl, gravatarUrlForEmail, normalizeEmail, sha256Hex } from './gravatar';
 
 describe('normalizeEmail', () => {
 	it('trims and lowercases valid email values', () => {
@@ -36,26 +36,6 @@ describe('gravatarUrl', () => {
 	it('builds a Gravatar URL from an email', async () => {
 		await expect(gravatarUrlForEmail('MyEmailAddress@example.com ', { size: 200, defaultImage: '404' })).resolves.toBe(
 			'https://www.gravatar.com/avatar/84059b07d4be67b806386c0aad8070a23f18836bbaae342275dc0a83414c32ee?s=200&d=404&r=g',
-		);
-	});
-});
-
-describe('gravatarProxyUrl', () => {
-	it('builds a same-origin Gravatar proxy URL', () => {
-		expect(gravatarProxyUrl('abc', { size: 96, defaultImage: 'identicon', rating: 'pg', forceDefault: true })).toBe(
-			'/gravatar/avatar/abc?s=96&d=identicon&r=pg&f=y',
-		);
-	});
-
-	it('builds a proxy URL below the configured Directus API base URL', () => {
-		expect(gravatarProxyUrl('abc', { size: 96 }, '/directus/')).toBe('/directus/gravatar/avatar/abc?s=96&d=mp&r=g');
-	});
-
-	it('builds a same-origin proxy URL from an email', async () => {
-		await expect(
-			gravatarProxyUrlForEmail('MyEmailAddress@example.com ', { size: 200, defaultImage: '404' }, '/directus'),
-		).resolves.toBe(
-			'/directus/gravatar/avatar/84059b07d4be67b806386c0aad8070a23f18836bbaae342275dc0a83414c32ee?s=200&d=404&r=g',
 		);
 	});
 });

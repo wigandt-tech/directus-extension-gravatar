@@ -57,36 +57,9 @@ export function gravatarUrl(hash: string, options: GravatarOptions = {}): string
 	return `https://www.gravatar.com/avatar/${hash}?${params.toString()}`;
 }
 
-function joinUrl(baseUrl: string | undefined, path: string): string {
-	const base = baseUrl?.replace(/\/+$/, '') ?? '';
-	return base ? `${base}/${path}` : `/${path}`;
-}
-
-export function gravatarProxyUrl(hash: string, options: GravatarOptions = {}, baseUrl?: string): string {
-	const params = new URLSearchParams();
-	params.set('s', String(clampSize(options.size)));
-	params.set('d', options.defaultImage ?? 'mp');
-	params.set('r', options.rating ?? 'g');
-
-	if (options.forceDefault) params.set('f', 'y');
-
-	return joinUrl(baseUrl, `gravatar/avatar/${hash}?${params.toString()}`);
-}
-
 export async function gravatarUrlForEmail(email: unknown, options: GravatarOptions = {}): Promise<string | null> {
 	const normalized = normalizeEmail(email);
 	if (!normalized) return null;
 
 	return gravatarUrl(await sha256Hex(normalized), options);
-}
-
-export async function gravatarProxyUrlForEmail(
-	email: unknown,
-	options: GravatarOptions = {},
-	baseUrl?: string,
-): Promise<string | null> {
-	const normalized = normalizeEmail(email);
-	if (!normalized) return null;
-
-	return gravatarProxyUrl(await sha256Hex(normalized), options, baseUrl);
 }
