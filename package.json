@@ -16,8 +16,7 @@
 	"keywords": [
 		"directus",
 		"directus-extension",
-		"directus-custom-bundle",
-		"directus-extension-bundle",
+		"directus-extension-display",
 		"display",
 		"avatar",
 		"gravatar",
@@ -25,23 +24,9 @@
 	],
 	"directus:extension": {
 		"host": "^11.0.0 || ^12.0.0",
-		"type": "bundle",
-		"path": {
-			"app": "dist/app.js",
-			"api": "dist/api.js"
-		},
-		"entries": [
-			{
-				"type": "display",
-				"name": "gravatar-display",
-				"source": "src/display/index.ts"
-			},
-			{
-				"type": "endpoint",
-				"name": "gravatar",
-				"source": "src/endpoint/index.ts"
-			}
-		]
+		"type": "display",
+		"path": "dist/index.js",
+		"source": "src/display/index.ts"
 	},
 	"files": [
 		"dist"
