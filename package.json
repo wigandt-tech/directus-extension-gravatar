@@ -42,7 +42,7 @@
 		"add": "directus-extension add"
 	},
 	"devDependencies": {
-		"@directus/extensions-sdk": "^17.1.4",
+		"@directus/extensions-sdk": "^18.0.0",
 		"@vitejs/plugin-vue": "^6.0.2",
 		"typescript": "^6.0.3",
 		"vite": "^8.0.14",
